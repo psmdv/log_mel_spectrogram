@@ -3,12 +3,14 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
+    <PackageLicenseFile>../../LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="LogMelSpectrogramCS">
       <HintPath>..\..\build\Release\cs_log_mel_spectrogram.dll</HintPath>
     </Reference>
+    <None Include="licenses\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
   </ItemGroup>
 
 </Project>

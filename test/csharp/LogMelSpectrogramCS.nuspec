@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>LogMelSpectrogram</id>
+    <version>1.0.0</version>
+    <authors>Prabu Selvaraj</authors>
+    <owners>prabuselva</owners>
+    <license type="file">LICENSE</license>
+    <projectUrl>https://github.com/psmdv/log_mel_spectrogram</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>LogMelSpectrogram for a native C++ /C# library.</description>
+    <releaseNotes>Initial release.</releaseNotes>
+    <copyright>Copyright 2024</copyright>
+    <tags>cpp cli wrapper spectrogram mel_spectrogram log_mel_spectrogram</tags>
+    <readme>cs_README.md</readme>
+    <dependencies>
+      <group targetFramework=".NETFramework8.0.0" />
+      <group targetFramework="native" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="./cs_README.md" target="cs_README.md" />
+    <file src="../../LICENSE" target="LICENSE" />    
+    <file src="../../build/Release/cs_log_mel_spectrogram.dll" target="lib/net8.0/cs_log_mel_spectrogram.dll" />
+    <file src="../../build/Release/log_mel_spectrogram.lib" target="lib/native/log_mel_spectrogram.lib" />
+    <file src="../../inc/log_mel_spectrogram.hpp" target="build/native/include/log_mel_spectrogram.hpp" />
+    <file src="../../inc/csharp_binding.hpp" target="build/native/include/csharp_binding.hpp" />
+    <file src="../../assets/mel_80.bin" target="content/mel_80.bin" />
+  </files>
+</package>
