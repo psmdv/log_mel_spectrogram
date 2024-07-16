@@ -314,6 +314,11 @@ LogMelSpectrogram::load_wav_audio_and_compute(const std::string& filename)
 {
     std::vector<float> mel_spectrogram;
     void* h_x = wav_read_open(filename.c_str());
+    if (h_x == NULL) 
+    {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return mel_spectrogram;
+    }
 
     int format, channels, sr, bits_per_sample;
     unsigned int data_length;

@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>LogMelSpectrogram</id>
-    <version>1.0.2</version>
+    <version>1.0.3</version>
     <authors>psmdv</authors>
     <owners>psmdv</owners>
     <license type="file">LICENSE</license>

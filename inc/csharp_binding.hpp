@@ -7,6 +7,7 @@
 
 using namespace System;
 using namespace System::Collections::Generic;
+using namespace System::Runtime::InteropServices;
 
 namespace LogMelSpectrogramCS {
 
@@ -55,6 +56,21 @@ namespace LogMelSpectrogramCS {
 
             return outputList;
         }
+
+        List<float>^ load_wav_audio_and_compute(System::String^ filename) {
+            List<float>^ outputList = gcnew List<float>();
+
+            std::string filename_cpp = "";
+            MarshalNetToStdString(filename, filename_cpp);
+           
+            std::vector<float> outputVector = melSpectrogram->load_wav_audio_and_compute(filename_cpp);
+             
+            for (float value : outputVector) {
+                outputList->Add(value);
+            }
+
+            return outputList;
+        }        
     };
 
 }

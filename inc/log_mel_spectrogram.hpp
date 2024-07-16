@@ -17,7 +17,7 @@ public:
 
     std::vector<float> compute(const std::vector<float>& audio_data);
 
-    std::vector<float> LogMelSpectrogram::load_wav_audio_and_compute(const std::string& filename);
+    std::vector<float> load_wav_audio_and_compute(const std::string& filename);
 
 private:
     std::shared_ptr<mel_calc_cpu> mel_calculator_sptr;
