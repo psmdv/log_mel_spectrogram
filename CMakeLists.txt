@@ -7,16 +7,25 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include_directories(inc)
 
 add_subdirectory(extern/pybind11)
-pybind11_add_module(py_log_mel_spectrogram src/log_mel_spectrogram.cpp src/pybind11_binding.cpp)
+pybind11_add_module(py_log_mel_spectrogram 
+        src/log_mel_spectrogram.cpp 
+        src/pybind11_binding.cpp
+        src/wavreader.cpp
+    )
 
 
-add_library(log_mel_spectrogram MODULE src/log_mel_spectrogram.cpp src/pybind11_binding.cpp)
+add_library(log_mel_spectrogram MODULE 
+        src/log_mel_spectrogram.cpp 
+        src/pybind11_binding.cpp
+        src/wavreader.cpp
+    )
 target_link_libraries(log_mel_spectrogram PRIVATE pybind11::module)
 
 if(MSVC)
     add_library(cs_log_mel_spectrogram SHARED
         src/log_mel_spectrogram.cpp
         src/csharp_binding.cpp
+        src/wavreader.cpp
     )
     set_target_properties(cs_log_mel_spectrogram PROPERTIES COMMON_LANGUAGE_RUNTIME "")
 

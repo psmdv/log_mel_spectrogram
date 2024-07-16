@@ -1,7 +1,7 @@
 # Log Mel Spectrogram C++
 
 - This project is heavily inspired from whisper.cpp and most of the code is from https://github.com/ggerganov/whisper.cpp
-- Thanks @ggerganov for this excellent contributions to the OSS AI community.
+- Wav file reader is full port from https://github.com/mstorsjo/fdk-aac
 - This is a quick portable C/C++ version of computing log-mel-spectrograms that can be used in conjunction with whisper Models
 
 # Supported Bindings
@@ -23,3 +23,10 @@ $ cmake ..
 # License
 
 - MIT License Project - You can freely distribute or use the code for your own projects.
+
+# Thanks
+
+- ggerganov (https://github.com/ggerganov)
+- mstorsjo (https://github.com/mstorsjo)
+
+for the valuable contributions to the OSS AI and AV community 

@@ -9,6 +9,7 @@
 #include <cassert>
 #include <cstring>
 #include <fstream>
+#include "wavreader.h"
 
 // Constants
 #define WHISPER_N_FFT 400
@@ -291,7 +292,6 @@ private:
     whisper_filters m_filters;
 };
 
-
 LogMelSpectrogram::LogMelSpectrogram(std::string mel_filter_binfile) : n_threads(2)
 {
     mel_calculator_sptr.reset(new mel_calc_cpu(mel_filter_binfile));
@@ -307,6 +307,42 @@ LogMelSpectrogram::compute(const std::vector<float>& audio_data)
 {
     whisper_mel_data mel = mel_calculator_sptr->calculate(audio_data, n_threads);
     return mel.data;
+}
+
+std::vector<float>
+LogMelSpectrogram::load_wav_audio_and_compute(const std::string& filename)
+{
+    std::vector<float> mel_spectrogram;
+    void* h_x = wav_read_open(filename.c_str());
+
+    int format, channels, sr, bits_per_sample;
+    unsigned int data_length;
+    int res = wav_get_header(h_x, &format, &channels, &sr, &bits_per_sample, &data_length);
+    if (!res)
+    {
+        std::cerr << "get ref header error: " << res << std::endl;
+        return mel_spectrogram;
+    }
+
+    int samples = data_length * 8 / bits_per_sample;
+    std::vector<int16_t> tmp(samples);
+    res = wav_read_data(h_x, reinterpret_cast<unsigned char*>(tmp.data()), data_length);
+    if (res < 0)
+    {
+        std::cerr << "read wav file error: " << res << std::endl;
+        return mel_spectrogram;
+    }
+    std::vector<float> x(samples);
+    std::transform(tmp.begin(), tmp.end(), x.begin(),
+        [](int16_t a) {
+        return static_cast<float>(a) / 32767.f;
+    });
+
+    std::vector<float> paded_x = pad_or_trim(x, N_SAMPLES);
+
+    mel_spectrogram = this->compute(paded_x);
+
+    return mel_spectrogram;
 }
 
 }

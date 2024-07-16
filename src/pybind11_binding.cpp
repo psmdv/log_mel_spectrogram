@@ -25,5 +25,13 @@ PYBIND11_MODULE(py_log_mel_spectrogram, m) {
 
             // Convert the result to a NumPy array and return
             return py::array(result.size(), result.data());
+        })
+        .def("load_wav_audio_and_compute", [](mel_spectrogram::LogMelSpectrogram &self, const std::string& filename) {
+
+            // Call the C++ function
+            std::vector<float> result = self.load_wav_audio_and_compute(filename);
+
+            // Convert the result to a NumPy array and return
+            return py::array(result.size(), result.data());
         });
 }
