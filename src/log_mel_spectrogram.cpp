@@ -344,7 +344,58 @@ LogMelSpectrogram::load_wav_audio_and_compute(const std::string& filename)
     });
 
     std::vector<float> paded_x = pad_or_trim(x, N_SAMPLES);
+    mel_spectrogram = this->compute(paded_x);
 
+    return mel_spectrogram;
+}
+
+std::vector<float> 
+LogMelSpectrogram::load_wav_audio(const std::string& filename)
+{
+    std::vector<float> audio_chunks;
+    void* h_x = wav_read_open(filename.c_str());
+    if (h_x == NULL) 
+    {
+        std::cerr << "Error opening file: " << filename << std::endl;
+        return audio_chunks;
+    }
+
+    int format, channels, sr, bits_per_sample;
+    unsigned int data_length;
+    int res = wav_get_header(h_x, &format, &channels, &sr, &bits_per_sample, &data_length);
+    if (!res)
+    {
+        std::cerr << "get ref header error: " << res << std::endl;
+        return audio_chunks;
+    }
+
+    int samples = data_length * 8 / bits_per_sample;
+    std::vector<int16_t> tmp(samples);
+    res = wav_read_data(h_x, reinterpret_cast<unsigned char*>(tmp.data()), data_length);
+    if (res < 0)
+    {
+        std::cerr << "read wav file error: " << res << std::endl;
+        return audio_chunks;
+    }
+    audio_chunks.resize(samples);
+    std::transform(tmp.begin(), tmp.end(), audio_chunks.begin(),
+        [](int16_t a) {
+        return static_cast<float>(a) / 32767.f;
+    });
+    return audio_chunks;
+}
+
+std::vector<float>
+LogMelSpectrogram::load_audio_chunk(const std::vector<float>& audio_samples)
+{
+    std::vector<float> mel_spectrogram;
+    std::cout << "AudioSize: " << audio_samples.size() << std::endl;
+    for (int i=0; i<10; i++)
+    {
+        std::cout << audio_samples[i] << std::endl;
+    }
+
+    std::vector<float> paded_x = pad_or_trim(audio_samples, N_SAMPLES);
     mel_spectrogram = this->compute(paded_x);
 
     return mel_spectrogram;

@@ -70,7 +70,39 @@ namespace LogMelSpectrogramCS {
             }
 
             return outputList;
+        }
+
+        List<float>^ load_wav_audio(System::String^ filename) {
+            List<float>^ outputList = gcnew List<float>();
+
+            std::string filename_cpp = "";
+            MarshalNetToStdString(filename, filename_cpp);
+           
+            std::vector<float> outputVector = melSpectrogram->load_wav_audio(filename_cpp);
+             
+            for (float value : outputVector) {
+                outputList->Add(value);
+            }
+
+            return outputList;
         }        
+
+        List<float>^ load_audio_chunk(List<float>^ audio) {
+            List<float>^ outputList = gcnew List<float>();
+            
+            std::vector<float> audio_samples;
+            for each (float value in audio) {
+                audio_samples.push_back(value);
+            }
+            
+            std::vector<float> outputVector = melSpectrogram->load_audio_chunk(audio_samples);
+             
+            for (float value : outputVector) {
+                outputList->Add(value);
+            }
+
+            return outputList;
+        }
     };
 
 }

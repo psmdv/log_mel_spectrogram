@@ -19,6 +19,10 @@ public:
 
     std::vector<float> load_wav_audio_and_compute(const std::string& filename);
 
+    std::vector<float> load_wav_audio(const std::string& filename);
+
+    std::vector<float> load_audio_chunk(const std::vector<float>& audio_samples);
+
 private:
     std::shared_ptr<mel_calc_cpu> mel_calculator_sptr;
     int n_threads;

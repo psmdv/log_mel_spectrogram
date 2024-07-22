@@ -24,10 +24,25 @@ model = whisper.load_model("tiny")
 """
 
 log_mel_spectrogram_instance = py_log_mel_spectrogram.LogMelSpectrogram("../../assets/mel_80.bin")
-# If you already have processed audio to wav 16Khz Mono, then you can use the below method to compute 
+"""
+    Use Case 1: If you already have processed audio to wav 16Khz Mono, then you can use the below method to compute 
+"""
+#audio = whisper.load_audio("../../assets/jfk.wav")
+#audio = whisper.pad_or_trim(audio)
 #lmel = log_mel_spectrogram_instance.compute(audio)
-# If you have only wav audio file
+
+"""
+    Use Case 2: If you have only wav audio file
+"""
 lmel = log_mel_spectrogram_instance.load_wav_audio_and_compute("../../assets/jfk.wav")
+
+"""
+    Use Case 3: If you have audio chunk file
+"""
+#audio = whisper.load_audio("../../assets/jfk.wav")
+#lmel = log_mel_spectrogram_instance.load_audio_chunk(audio)
+
+
 mel = lmel[:(80 * 3000)].reshape(80, 3000)
 mel = torch.from_numpy(mel)
 

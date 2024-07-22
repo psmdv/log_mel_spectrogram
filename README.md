@@ -9,12 +9,18 @@
 - C#
 
 # Instructions
-
+- Checkout the Repository and init submodules
+```shell
+$ git clone https://github.com/psmdv/log_mel_spectrogram
+$ git submodule init
+$ git submodule update
+```
 - Build the Python binding module or c++ dynamic library module using CMakeLists
 ```shell
 $ mkdir build
 $ cd build
 $ cmake ..
+$ cmake --build . --config Release
 # Ends up with two types of files
 # For Linux - liblog_mel_spectrogram_cpp.so  py_log_mel_spectrogram.cpython-310-x86_64-linux-gnu.so
 # For Windows - log_mel_spectrogram.dll py_log_mel_spectrogram.cp310-win_amd64.pyd cs_log_mel_spectrogram.dll
