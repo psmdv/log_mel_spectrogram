@@ -3,14 +3,17 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
-    <PackageLicenseFile>../../LICENSE</PackageLicenseFile>
   </PropertyGroup>
 
-  <ItemGroup>
+  <ItemGroup Condition="'$(PlatformTarget)' == 'x64'">
     <Reference Include="LogMelSpectrogramCS">
-      <HintPath>..\..\build\Release\cs_log_mel_spectrogram.dll</HintPath>
+      <HintPath>..\..\build_x64\Release\cs_log_mel_spectrogram.dll</HintPath>
     </Reference>
-    <None Include="licenses\LICENSE.txt" Pack="true" PackagePath="LICENSE.txt"/>
+  </ItemGroup>
+  <ItemGroup Condition="'$(PlatformTarget)' == 'arm64'">
+    <Reference Include="LogMelSpectrogramCS">
+      <HintPath>..\..\build_arm64\Release\cs_log_mel_spectrogram.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

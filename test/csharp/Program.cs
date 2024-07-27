@@ -100,7 +100,7 @@ class Program
 
     static void computeMelsFromAudioFile(LogMelSpectrogramCSBinding log_mel_spectrogram)
     {
-        List<float> output = log_mel_spectrogram.load_wav_audio_and_compute("../../../../../assets/jfk.wav");
+        List<float> output = log_mel_spectrogram.load_wav_audio_and_compute("../../assets/jfk.wav");
         Console.WriteLine("Mels From Audio File Output:");
         if (output.Count > 10)
         {
@@ -116,7 +116,7 @@ class Program
     {
         // Prepare Audio Chunk
         List<float> audio_chunk = new List<float>();
-        float[] audio_buffer = ReadWavFile("../../../../../assets/jfk.wav");
+        float[] audio_buffer = ReadWavFile("../../assets/jfk.wav");
         for (int i=0; i<audio_buffer.Length; i++)
         {
             audio_chunk.Add(audio_buffer[i]);
@@ -138,7 +138,7 @@ class Program
 
     static void Main()
     {
-        String mel_bin_file = "../../../../../assets/mel_80.bin";
+        String mel_bin_file = "../../assets/mel_80.bin";
         if (File.Exists(mel_bin_file) == false)
         {
             // Check current directory
